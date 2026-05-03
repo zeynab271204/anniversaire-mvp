@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backstage - Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center py-10 px-4">
+    <div class="vignette"></div>
+    
+    <div class="w-full max-w-5xl z-10 relative">
+        <div class="flex items-end justify-between mb-10 border-b border-[#d4af37]/30 pb-4">
+            <h2 class="text-5xl font-bold italic tracking-wider text-white">DISCOGRAPHIE & <span class="text-[#d4af37]">STATISTIQUES</span></h2>
+            <p class="text-[#d4af37] tracking-widest hidden md:block">DASHBOARD</p>
+        </div>
+
+        <!-- Nouvelle grille avec 4 boutons (2x2 sur grand écran) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            
+            <!-- BOUTON 1 : La Tournée / Code VIP -->
+            <div onclick="goToPage('palmares.html')" class="tilt-card interactive-el bg-[#0a0a0a] border border-[#d4af37]/20 p-8 h-48 md:h-56 flex flex-col justify-between hover:bg-[#d4af37]/10 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.8)]" style="transform: skewX(-3deg);">
+                <div class="tilt-content flex justify-between items-start">
+                    <span class="text-[#d4af37] text-4xl font-bold opacity-50">01</span>
+                    <svg class="w-8 h-8 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                </div>
+                <div class="tilt-content">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-1 uppercase italic">Tournée / Souvenirs</h3>
+                    <p class="text-xs tracking-[0.2em] text-[#a8896c]">ACCÈS SÉCURISÉ</p>
+                </div>
+            </div>
+
+            <!-- BOUTON 2 : La Lettre -->
+            <div onclick="goToPage('discours.html')" class="tilt-card interactive-el bg-[#0a0a0a] border border-[#d4af37]/20 p-8 h-48 md:h-56 flex flex-col justify-between hover:bg-[#d4af37]/10 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.8)]" style="transform: skewX(-3deg);">
+                <div class="tilt-content flex justify-between items-start">
+                    <span class="text-[#d4af37] text-4xl font-bold opacity-50">02</span>
+                    <svg class="w-8 h-8 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                </div>
+                <div class="tilt-content">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-1 uppercase italic">Backstage</h3>
+                    <p class="text-xs tracking-[0.2em] text-[#a8896c]">MESSAGE DU MANAGER</p>
+                </div>
+            </div>
+
+            <!-- BOUTON 3 : La Musique -->
+            <div onclick="goToPage('focus.html')" class="tilt-card interactive-el bg-[#0a0a0a] border border-[#d4af37]/20 p-8 h-48 md:h-56 flex flex-col justify-between hover:bg-[#d4af37]/10 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.8)]" style="transform: skewX(-3deg);">
+                <div class="tilt-content flex justify-between items-start">
+                    <span class="text-[#d4af37] text-4xl font-bold opacity-50">03</span>
+                    <div class="flex items-end gap-1"><div class="eq-bar !h-4"></div><div class="eq-bar !h-8"></div><div class="eq-bar !h-6"></div></div>
+                </div>
+                <div class="tilt-content mt-auto">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-1 uppercase italic">Zone de Flow</h3>
+                    <p class="text-xs tracking-[0.2em] text-[#a8896c]">STUDIO D'ENTRAÎNEMENT</p>
+                </div>
+            </div>
+
+            <!-- BOUTON 4 : Le Sport (Nouvelle page) -->
+            <div onclick="goToPage('entrainement.html')" class="tilt-card interactive-el bg-[#0a0a0a] border border-[#d4af37]/20 p-8 h-48 md:h-56 flex flex-col justify-between hover:bg-[#d4af37]/10 transition-colors shadow-[0_0_20px_rgba(0,0,0,0.8)]" style="transform: skewX(-3deg);">
+                <div class="tilt-content flex justify-between items-start">
+                    <span class="text-[#d4af37] text-4xl font-bold opacity-50">04</span>
+                    <svg class="w-8 h-8 text-[#d4af37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                </div>
+                <div class="tilt-content mt-auto">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-1 uppercase italic">Training Camp</h3>
+                    <p class="text-xs tracking-[0.2em] text-[#a8896c]">PERFORMANCE PURE</p>
+                </div>
+            </div>
+
+        </div>
+
+        <button onclick="goToPage('index.html')" class="mt-12 text-[#d4af37] tracking-widest hover:text-white transition uppercase font-bold flex items-center gap-2 interactive-el">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg> Retour au tunnel
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Souvenirs</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Styles pour le digicode */
+        .keypad-btn {
+            width: 70px; height: 70px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; font-weight: bold;
+            border: 1px solid rgba(168, 123, 81, 0.3);
+            background: rgba(10, 10, 10, 0.8);
+            color: #a87b51; transition: all 0.2s;
+            transform: skewX(-5deg);
+        }
+        .keypad-btn:hover, .keypad-btn:active {
+            background: #a87b51; color: #000; box-shadow: 0 0 15px rgba(168, 123, 81, 0.5);
+        }
+        .dot { width: 15px; height: 15px; border-radius: 50%; border: 2px solid #a87b51; transition: all 0.3s; }
+        .dot.filled { background: #a87b51; box-shadow: 0 0 10px #a87b51; }
+        
+        .error-shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-6px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
+
+        /* Styles pour la timeline */
+        .timeline-container::before {
+            content: ''; position: absolute; top: 0; left: 16px; height: 100%; width: 2px;
+            background: linear-gradient(to bottom, transparent, #a87b51, #a87b51, transparent);
+        }
+        .timeline-item { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .timeline-item.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Effet photo polaroid penché */
+        .tour-photo { border: 3px solid #111; filter: grayscale(30%); transition: all 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .tour-photo:hover { filter: grayscale(0%); transform: scale(1.05); border-color: #a87b51; }
+    </style>
+</head>
+<body class="min-h-screen px-4 bg-[#030303]">
+    <div class="vignette"></div>
+
+    <!-- ÉCRAN DE VERROUILLAGE (DIGICODE) -->
+    <div id="lock-screen" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#050505] transition-opacity duration-1000">
+        <div class="text-center mb-8" style="transform: skewX(-3deg);">
+            <svg class="w-12 h-12 text-[#a87b51] mx-auto mb-4" id="lock-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+            <h2 class="text-[#a87b51] tracking-[0.3em] font-bold text-xl uppercase">Accès Privé</h2>
+            <p id="lock-message" class="text-gray-500 tracking-widest text-sm mt-2">Veuillez entrer le code</p>
+        </div>
+
+        <!-- Points du mot de passe -->
+        <div class="flex gap-4 mb-8" id="password-dots">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+
+        <!-- Clavier Numérique -->
+        <div class="grid grid-cols-3 gap-3">
+            <button class="keypad-btn interactive-el" onclick="pressKey(1)">1</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(2)">2</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(3)">3</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(4)">4</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(5)">5</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(6)">6</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(7)">7</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(8)">8</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(9)">9</button>
+            <button class="keypad-btn interactive-el text-red-500 text-sm" onclick="clearCode()">DEL</button>
+            <button class="keypad-btn interactive-el" onclick="pressKey(0)">0</button>
+            <button class="keypad-btn interactive-el" onclick="goToPage('menu.html')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- NOS SOUVENIRS (TIMELINE) -->
+    <div id="timeline-screen" class="hidden min-h-screen py-20 z-10 relative max-w-4xl mx-auto opacity-0 transition-opacity duration-1000">
+        <h1 class="text-5xl md:text-7xl font-bold text-white italic mb-16 uppercase border-l-4 border-[#a87b51] pl-6" style="transform: skewX(-5deg);">
+            Nos <span class="text-[#a87b51]">Souvenirs</span>
+        </h1>
+
+        <!-- Conteneur de la ligne du temps -->
+        <div class="relative timeline-container pl-12 md:pl-20 space-y-20">
+            
+            <!-- Photo 1 -->
+            <div class="timeline-item relative">
+                <div class="absolute -left-[37px] md:-left-[53px] top-2 w-5 h-5 bg-[#a87b51] rounded-full border-4 border-[#111] shadow-[0_0_15px_#a87b51]"></div>
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="flex-1" style="transform: skewX(-3deg);">
+                        <p class="text-[#a87b51] tracking-widest font-bold text-xl mb-1">SOUVENIR </p>
+                        <h3 class="text-3xl text-white font-serif italic mb-4">Le début</h3>
+                        <p class="text-[#e6dace] leading-relaxed">Le commencement de notre histoire. Une journée parfaite.</p>
+                    </div>
+                    <div class="flex-1 tilt-card interactive-el">
+                        <img src="6.jpeg" alt="Souvenir 1" class="tour-photo w-full aspect-video object-cover tilt-content" style="transform: rotate(2deg);">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 2 -->
+            <div class="timeline-item relative">
+                <div class="absolute -left-[37px] md:-left-[53px] top-2 w-5 h-5 bg-[#a87b51] rounded-full border-4 border-[#111] shadow-[0_0_15px_#a87b51]"></div>
+                <div class="flex flex-col md:flex-row-reverse gap-8 items-start">
+                    <div class="flex-1" style="transform: skewX(-3deg);">
+                        <p class="text-[#a87b51] tracking-widest font-bold text-xl mb-1">SOUVENIR 2</p>
+                        <h3 class="text-3xl text-white font-serif italic mb-4"></h3>
+                        <p class="text-[#e6dace] leading-relaxed">Un de nos meilleurs moments ensemble. Que du bonheur.</p>
+                    </div>
+                    <div class="flex-1 tilt-card interactive-el">
+                        <img src="1.jpeg" alt="Souvenir 2" class="tour-photo w-full aspect-video object-cover tilt-content" style="transform: rotate(-2deg);">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo 3 -->
+            <div class="timeline-item relative">
+                <div class="absolute -left-[37px] md:-left-[53px] top-2 w-5 h-5 bg-[#a87b51] rounded-full border-4 border-[#111] shadow-[0_0_15px_#a87b51]"></div>
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="flex-1" style="transform: skewX(-3deg);">
+                        <p class="text-[#a87b51] tracking-widest font-bold text-xl mb-1"></p>
+                        <h3 class="text-3xl text-white font-serif italic mb-4">Aujourd'hui</h3>
+                        <p class="text-[#e6dace] leading-relaxed">Joyeux anniversaire Ma vieeeeeee.</p>
+                    </div>
+                    <div class="flex-1 tilt-card interactive-el">
+                        <img src="2.jpeg" alt="Souvenir 3" class="tour-photo w-full aspect-video object-cover tilt-content" style="transform: rotate(3deg);">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button onclick="goToPage('menu.html')" class="mt-20 ml-12 md:ml-20 text-[#a87b51] tracking-widest hover:text-white transition uppercase font-bold flex items-center gap-2 interactive-el">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg> Retour au Menu
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // CODE SECRET 
+        const SECRET_CODE = "2026"; 
+        
+        let currentCode = "";
+        const dots = document.querySelectorAll('.dot');
+        const lockScreen = document.getElementById('lock-screen');
+        const lockMessage = document.getElementById('lock-message');
+        const lockIcon = document.getElementById('lock-icon');
+        const timelineScreen = document.getElementById('timeline-screen');
+
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                if (index < currentCode.length) dot.classList.add('filled');
+                else dot.classList.remove('filled');
+            });
+        }
+
+        function pressKey(num) {
+            if (currentCode.length < 4) {
+                currentCode += num;
+                updateDots();
+                if (currentCode.length === 4) {
+                    setTimeout(checkCode, 200); 
+                }
+            }
+        }
+
+        function clearCode() {
+            currentCode = "";
+            updateDots();
+            lockMessage.innerText = "Veuillez entrer le code";
+            lockMessage.classList.remove('text-red-500');
+        }
+
+        function checkCode() {
+            if (currentCode === SECRET_CODE) {
+                lockIcon.classList.replace('text-[#a87b51]', 'text-green-500');
+                lockMessage.innerText = "ACCÈS AUTORISÉ";
+                lockMessage.classList.add('text-green-500');
+                dots.forEach(dot => { dot.style.borderColor = "#22c55e"; dot.style.background = "#22c55e"; });
+                
+                setTimeout(() => {
+                    lockScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        lockScreen.style.display = 'none';
+                        timelineScreen.classList.remove('hidden');
+                        setTimeout(() => {
+                            timelineScreen.style.opacity = '1';
+                            animateTimelineItems(); 
+                        }, 100);
+                    }, 1000);
+                }, 800);
+
+            } else {
+                document.getElementById('password-dots').classList.add('error-shake');
+                lockMessage.innerText = "CODE INCORRECT";
+                lockMessage.classList.add('text-red-500');
+                dots.forEach(dot => { dot.style.borderColor = "#ef4444"; dot.classList.remove('filled'); });
+                
+                setTimeout(() => {
+                    document.getElementById('password-dots').classList.remove('error-shake');
+                    clearCode();
+                    dots.forEach(dot => { dot.style.borderColor = "#a87b51"; });
+                }, 800);
+            }
+        }
+
+        function animateTimelineItems() {
+            const items = document.querySelectorAll('.timeline-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 400);
+            });
+        }
+    </script>
+</body>
+</html>
