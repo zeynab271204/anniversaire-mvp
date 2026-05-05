@@ -2,59 +2,33 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message du Manager</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen flex items-center justify-center px-4 bg-[#030303]">
-    <div class="vignette"></div>
-
-    <div class="max-w-3xl w-full z-10 relative">
+<body class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+        <button onclick="goToPage('menu.html')" class="text-[#d4af37] mb-12 font-bold uppercase tracking-widest">← Back to Dashboard</button>
         
-        <div class="text-center mb-10" style="transform: skewX(-3deg);">
-            <svg class="w-10 h-10 text-[#a87b51] mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-            <h1 class="text-4xl md:text-5xl font-bold text-white italic uppercase tracking-wider">
-                Note <span class="text-[#a87b51]">Confidentielle</span>
-            </h1>
-            <p class="text-[#a87b51] tracking-[0.3em] font-bold mt-2 text-sm">SAISON 2026</p>
-        </div>
-
-        <div class="tilt-card bg-[#0a0a0a] border border-[#a87b51]/30 p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.8)] interactive-el" style="transform: skewX(-2deg);">
-            <div class="tilt-content space-y-6 text-[#e6dace] text-lg md:text-xl leading-relaxed font-serif italic">
+        <div class="bg-[#0a0a0a] border-l-4 border-[#d4af37] p-12 md:p-16 shadow-2xl">
+            <h2 class="text-5xl font-black text-white italic uppercase mb-12">Le Talk <span class="text-[#d4af37]">du Manager</span></h2>
+            
+            <div class="space-y-8 text-[#e6dace] text-xl md:text-2xl leading-relaxed italic font-serif">
+                <p>Je ne vais pas faire semblant de maîtriser mes mots aujourd’hui. Parce que quand il s’agit de toi, tout devient un peu plus réel… et un peu plus difficile à expliquer.</p>
+                <p>Tu sais, je ne suis pas toujours quelqu’un qui parle facilement de ce qu’elle ressent. Mais avec toi, c’est différent... Avec toi, je respire normalement.</p>
+                <p>Dans un monde où tout va vite, où tout change, tu es devenu mon repère...</p>
+                <p>J’aime la manière dont tu es toi. Ta détermination, ton énergie... ça force le respect.</p>
+                <p>Et moi, de mon côté, je prie sincèrement pour que Dieu t’accorde encore plus de paix, de réussite et de bonheur.]</p>
+                <p>Merci d’être là... sans masque, sans effort.</p>
+                <p>Joyeux anniversaire à toi. Que cette nouvelle année t’élève encore plus.</p>
                 
-                <p>
-                    Joyeux anniversaire à mon champion.
-                </p>
-
-                <p>
-                    Je voulais marquer le coup pour cette nouvelle année. Tu es mon MVP au quotidien, celui qui rend chaque saison meilleure que la précédente.
-                </p>
-
-                <p>
-                    Que cette nouvelle année t'apporte tout ce que tu mérites : des victoires, des rires, et de la réussite dans tout ce que tu entreprends.
-                </p>
-
-                <p>
-                    Peu importe les défis, n'oublie jamais que je serai toujours là, dans ta loge VIP, pour te soutenir. Profite à fond de ta journée.
-                </p>
-
-                <p class="text-[#a87b51] font-bold not-italic tracking-widest mt-8 text-right text-sm uppercase">
-                    - Ta supportrice numéro 1
-                </p>
-
+                <div class="pt-16 text-right border-t border-[#d4af37]/20">
+                    <p class="text-[#d4af37] font-bold text-sm uppercase">
+                        — Sayyy 
+                    </p>
+                </div>
             </div>
         </div>
-
-        <div class="flex justify-center mt-12">
-            <button onclick="goToPage('menu.html')" class="text-[#a87b51] tracking-widest hover:text-white transition uppercase font-bold flex items-center gap-2 interactive-el">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg> Retour au Dashboard
-            </button>
-        </div>
-
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

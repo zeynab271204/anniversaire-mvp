@@ -1,74 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Playfair+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700;900&display=swap');
 
-* { cursor: none !important; user-select: none; box-sizing: border-box; }
+* { cursor: none !important; box-sizing: border-box; }
 
-/* FOND : NOIR ABSOLU & CUIR */
 body { 
-    margin: 0; overflow-x: hidden; 
+    margin: 0; 
     background-color: #030303; 
-    background-image: 
-        linear-gradient(rgba(168, 123, 81, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(168, 123, 81, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
     color: #e6dace; 
     font-family: 'Oswald', sans-serif; 
+    overflow-x: hidden;
 }
 
-/* PROJECTEURS PSG (Bleu Marine, Rouge, Marron Sombre) */
-.spotlights-container {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: -4; overflow: hidden; pointer-events: none;
-}
-.spotlight { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.6; animation: panLight 18s infinite alternate ease-in-out; mix-blend-mode: screen;}
-
-/* Bleu PSG */
-.sp-1 { width: 80vw; height: 80vw; background: radial-gradient(circle, rgba(0, 65, 112, 0.3), transparent 60%); top: -20vh; left: -20vw; animation-duration: 25s; }
-/* Rouge PSG */
-.sp-2 { width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(218, 41, 28, 0.25), transparent 60%); bottom: -10vh; right: -10vw; animation-delay: -5s; animation-duration: 20s; }
-/* Marron Profond */
-.sp-3 { width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(74, 46, 27, 0.4), transparent 60%); top: 30vh; left: 20vw; animation-delay: -10s; animation-duration: 28s; }
-
-@keyframes panLight {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(8vw, 12vh) scale(1.2); }
+/* Lignes de terrain de basket[cite: 8] */
+.court-lines {
+    position: fixed; inset: 0; opacity: 0.05; pointer-events: none; z-index: -1;
+    background-image: linear-gradient(#d4af37 1px, transparent 1px), linear-gradient(90deg, #d4af37 1px, transparent 1px);
+    background-size: 100px 100px;
 }
 
-/* CURSEUR VIP */
-#cursor-dot { position: fixed; top: 0; left: 0; width: 5px; height: 5px; background-color: #fff; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); box-shadow: 0 0 10px #a87b51;}
-#cursor-ring { position: fixed; top: 0; left: 0; width: 35px; height: 35px; border: 2px solid rgba(168, 123, 81, 0.8); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, border-color 0.3s; }
-/* Au survol, le curseur prend l'énergie Rouge et Bleu */
-.hovering #cursor-ring { width: 45px; height: 45px; border-radius: 0%; border: 2px solid #DA291C; transform: translate(-50%, -50%) rotate(45deg); animation: spin 2s linear infinite; box-shadow: 0 0 15px rgba(0, 65, 112, 0.6) inset; }
-@keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+/* Projecteurs animés[cite: 8] */
+.spotlight { position: fixed; border-radius: 50%; filter: blur(100px); opacity: 0.2; z-index: -2; animation: pan 15s infinite alternate ease-in-out; }
+.sp-1 { width: 80vw; height: 80vw; background: radial-gradient(circle, #004170, transparent); top: -20%; left: -20%; }
+.sp-2 { width: 60vw; height: 60vw; background: radial-gradient(circle, #DA291C, transparent); bottom: -10%; right: -10%; }
 
-.vignette { position: fixed; top: 0; left: 0; width: 100%; height: 100%; box-shadow: 0 0 200px rgba(0,0,0,0.95) inset; z-index: -2; pointer-events: none; }
-#soundwave { position: fixed; bottom: 0; left: 0; width: 100%; height: 30vh; z-index: -3; pointer-events: none; opacity: 0.7; }
+@keyframes pan { from { transform: translate(0,0) scale(1); } to { transform: translate(5%, 5%) scale(1.1); } }
 
-/* BOUTON LOGE VIP */
-.btn-stage {
-    position: relative; display: inline-block; padding: 15px 40px; background: rgba(15, 10, 8, 0.8); backdrop-filter: blur(10px);
-    border: 1px solid #4a2e1b; color: #fff; text-transform: uppercase; font-weight: 700; letter-spacing: 2px;
-    transform: skewX(-15deg); overflow: hidden; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+/* Curseur personnalisé[cite: 7, 8] */
+#cursor-dot { position: fixed; top: 0; left: 0; width: 6px; height: 6px; background: #fff; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); }
+#cursor-ring { position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid #d4af37; border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s; }
+
+/* Styles des cartes du menu[cite: 2, 5] */
+.track-card {
+    background: #0a0a0a; border: 1px solid rgba(212, 175, 55, 0.1); padding: 2rem; height: 280px;
+    display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s; cursor: pointer;
 }
-.btn-stage::before {
-    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
-    background: linear-gradient(45deg, #004170, #DA291C); /* Le dégradé PSG au survol */
-    transition: all 0.5s ease; z-index: -1;
+.track-card:hover { border-color: #d4af37; background: #111; }
+
+.track-card .font-mono {
+    font-family: 'Courier New', Courier, monospace;
+    opacity: 0.6;
+    letter-spacing: 1px;
 }
-.btn-stage > span { display: inline-block; transform: skewX(15deg); }
-.btn-stage:hover { color: #ffffff; box-shadow: 0 15px 40px rgba(0, 65, 112, 0.4); border-color: transparent;}
-.btn-stage:hover::before { left: 0; }
 
-/* Transitions & 3D */
-body { animation: pageLoad 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
-@keyframes pageLoad { 0% { opacity: 0; transform: scale(1.02) translateY(15px); filter: blur(5px); } 100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } }
-body.fade-out { animation: pageExit 0.5s forwards; }
-@keyframes pageExit { to { opacity: 0; filter: blur(5px); } }
-.tilt-card { transform-style: preserve-3d; transform: perspective(1000px); }
-.tilt-content { transform: translateZ(30px); }
-
-/* Égaliseur Audio (Dégradé Bleu -> Rouge PSG) */
-.eq-bar { width: 5px; background: linear-gradient(to top, #004170, #DA291C); animation: eq 1s infinite ease-in-out alternate; transform-origin: bottom; border-radius: 2px; }
-.eq-bar:nth-child(1) { animation-delay: 0.1s; height: 20px; } .eq-bar:nth-child(2) { animation-delay: 0.3s; height: 45px; }
-.eq-bar:nth-child(3) { animation-delay: 0.0s; height: 70px; } .eq-bar:nth-child(4) { animation-delay: 0.4s; height: 35px; }
-.eq-bar:nth-child(5) { animation-delay: 0.2s; height: 50px; }
-@keyframes eq { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1); } }
+/* Effet au survol : la durée s'illumine en or */
+.track-card:hover .font-mono {
+    color: #d4af37;
+    opacity: 1;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
