@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maestro MVP - Mixtape Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques aux durées style studio[cite: 8] */
+        .track-duration {
+            font-family: 'Courier New', Courier, monospace;
+            opacity: 0.6;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .track-card:hover .track-duration {
+            color: #d4af37;
+            opacity: 1;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+        /* Style des cartes pour l'effet Mixtape[cite: 5] */
+        .track-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 2rem;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transform: skewX(-3deg);
+        }
+        .track-card:hover {
+            border-color: #d4af37;
+            background: #111;
+        }
+        .track-num { color: #d4af37; font-size: 0.85rem; font-weight: 900; letter-spacing: 0.2em; }
+        .track-title { color: white; font-size: 2rem; font-weight: 900; font-style: italic; text-transform: uppercase; line-height: 1; }
+        .track-sub { color: #a8896c; font-size: 0.75rem; text-transform: uppercase; font-weight: bold;; margin-top: 4px; }
+    </style>
+</head>
+<body class="min-h-screen bg-[#030303] text-[#e6dace] py-12 px-6">
+    <div class="court-lines"></div>
+    <div class="spotlight sp-1"></div>
+    <div class="spotlight sp-2"></div>
+
+    <main class="max-w-6xl mx-auto relative z-10">
+        <!-- Header Style Arena[cite: 5] -->
+        <header class="flex flex-col md:flex-row items-end justify-between mb-20 border-b-2 border-[#d4af37]/30 pb-8">
+            <div>
+                <p class="text-[#d4af37] font-bold tracking-[0.3em] text-sm uppercase mb-2">Saison 2026 . Taaru Sénégal Edition</p>
+                <h1 class="text-6xl md:text-7xl font-black italic text-white uppercase tracking-tighter">
+                    Maestro <span class="text-[#d4af37]">Dashboard</span>
+                </h1>
+            </div>
+            <div class="flex gap-12 mt-8 md:mt-0 text-right">
+                <div>
+                    <p class="text-[#a8896c] text-xs font-bold uppercase tracking-widest">Statut Officiel</p>
+                    <p class="text-3xl font-black text-white italic">MVP</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Grille des Tracks (Album Tracklist)[cite: 5] -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- TRACK 01 -->
+            <div onclick="location.href='palmares.html'" class="tilt-card track-card">
+                <div class="flex justify-between items-start">
+                    <span class="track-num">TRACK 01</span>
+                    <span class="track-duration">03:45</span>
+                </div>
+                <div>
+                    <h3 class="track-title">Mixtape</h3>
+                    <p class="track-sub">Playlist Souvenirs</p>
+                </div>
+            </div>
+
+            <!-- TRACK 02 -->
+            <div onclick="location.href='discours.html'" class="tilt-card track-card">
+                <div class="flex justify-between items-start">
+                    <span class="track-num">TRACK 02</span>
+                    <span class="track-duration">02:20</span>
+                </div>
+                <div>
+                    <h3 class="track-title">Locker Room</h3>
+                    <p class="track-sub">Talk du Manager</p>
+                </div>
+            </div>
+
+            <!-- TRACK 03 -->
+            <div onclick="location.href='focus.html'" class="tilt-card track-card">
+                <div class="flex justify-between items-start">
+                    <span class="track-num">TRACK 03</span>
+                    <span class="track-duration">04:15</span>
+                </div>
+                <div>
+                    <h3 class="track-title">Warm-up</h3>
+                    <p class="track-sub">Flow Studio (Amadeus)</p>
+                </div>
+            </div>
+
+            <!-- TRACK 04 -->
+            <div onclick="location.href='entrainement.html'" class="tilt-card track-card">
+                <div class="flex justify-between items-start">
+                    <span class="track-num">TRACK 04</span>
+                    <span class="track-duration">05:00</span>
+                </div>
+                <div>
+                    <h3 class="track-title">Drills</h3>
+                    <p class="track-sub">Performance Pure</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer Note[cite: 8] -->
+        <div class="mt-20 text-center opacity-40">
+            <p class="text-xs tracking-[0.5em] uppercase">Produced by Your Number 1 Supporter . All Rights Reserved 2026</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
